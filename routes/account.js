@@ -1,13 +1,7 @@
-module.exports = function routes(app) {
-    app.get('/account', function() {
-        return {
-            name: 'salary'
-        };
-    });
+var actsCtrl = require('../controllers/account_ctrl.js');
 
-    app.post('/account', function(req, res) {
-    	res.send({
-    		name: 'salary'
-    	})
-    });
+module.exports = function routes(app) {
+    app.get('/account', actsCtrl.getAccountByUser);
+
+    app.post('/account', actsCtrl.createAccount);
 }
