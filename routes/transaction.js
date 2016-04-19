@@ -1,13 +1,7 @@
-module.exports = function routes(app) {
-    app.get('/transaction', function() {
-        return {
-            '_id': 'trans1'
-        };
-    });
+var transCtrl = require('../controllers/transaction_ctrl');
 
-    app.post('/transaction', function(req, res) {
-    	res.send({
-    		'_id': 'trans1'
-    	})
-    });
+module.exports = function routes(app) {
+    app.get('/transaction', transCtrl.getTransactionUsers);
+
+    app.post('/transaction', transCtrl.createTransaction);
 }
