@@ -1,0 +1,32 @@
+<div class="modal-header">
+    <h3 class="modal-title">Create Account</h3>
+</div>
+<div class="modal-body">
+    <form>
+        <div class="form-group row">
+            <label for="inputEmail3" class="col-sm-2 form-control-label">Type</label>
+            <div class="col-sm-10">
+                <select class="form-control" ng-model="data.acctSelect">
+                    <option ng-selected="true" value="saving">Savings</option>
+                    <option value="salary">Salary</option>
+                    <option value="card">Card</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-2 form-control-label">Amount</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" ng-model='data.amount' placeholder="Amount">
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-offset-5 col-sm-10">
+                <button type="submit" ng-click='addAccount()' class="btn btn-primary">Create</button>
+            </div>
+        </div>
+        {{data}}
+    </form>
+</div>
+<div class="modal-footer">
+    
+</div>
