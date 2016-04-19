@@ -9,11 +9,16 @@ var User = new Schema({
     },
 });
 
-module.exports = mongoose.model('user', User);
-
-
-User.statics.findByname = function(name, cb) {
-    this.find({
+User.statics.findByName = function(name, cb) {
+    this.findOne({
         name: name
     }, cb);
 }
+
+User.statics.addUser = function(name, cb) {
+	var newUser = new mongoose.model('User', User);
+	newUser.name = name;
+	newUser.save(cb);
+}
+
+module.exports = mongoose.model('User', User, 'users');

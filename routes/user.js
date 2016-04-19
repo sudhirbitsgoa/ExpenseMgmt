@@ -1,3 +1,5 @@
+var userCtrl = require('../controllers/user_ctrl');
+
 module.exports = function routes(app) {
     app.get('/user', function() {
         return {
@@ -5,9 +7,5 @@ module.exports = function routes(app) {
         };
     });
 
-    app.post('/user', function(req, res) {
-    	res.send({
-    		name: 'sudhir'
-    	})
-    });
+    app.post('/user', userCtrl.addUser);
 }
