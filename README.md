@@ -13,9 +13,6 @@ Includes how to run the app, setting up the developer environment and contributi
 * can do transactions like buying or transfer to other accouts within.
 * shows list of transactions.
 
-### Github api ###
-* https://developer.github.com/v3/
-
 ### How do I get set up? ###
 
 * clone 
