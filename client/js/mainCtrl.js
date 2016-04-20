@@ -6,30 +6,48 @@ app.controller('mainCtrl', ['$scope', '$rootScope', 'coreService', '$location', 
             $location.path('/')
             return;
         }
-        
+
         $scope.data = {
-        	acctSelect: 'saving',
-        	amount: 10
+            acctSelect: 'saving',
+            amount: 10
         };
 
+        $scope.transaction = {
+            type: 'buy',
+            amount: 0,
+            acctSelect: 'saving',
+            fromAcct: '',
+            toAcct: ''
+        };
+
+        $scope.$watchCollection('transaction', function() {
+            if ($scope.transaction.type === 'buy') {
+                $scope.transType = false;
+                $scope.transaction.toAcct = '';
+            } else {
+                $scope.transType = true;
+                $scope.transaction.toAcct = getAccountId($scope.transaction.acctSelect);
+            }
+        });
+
         var userId = $rootScope.user._id;
-        
+
         $scope.getAccounts = function() {
             coreService.getAccounts(userId)
                 .then(function(data) {
                     $scope.accounts = data;
                 });
         }
-        
+
         $scope.getAccounts();
-        
+
         $scope.addAccount = function() {
             coreService.addAccount({
                 userId: userId,
                 acType: $scope.data.acctSelect,
                 amount: $scope.data.amount
             }).then(function(data) {
-            	$scope.modalInstance.close()
+                $scope.modalInstance.close()
                 $scope.getAccounts();
             });
         }
@@ -38,49 +56,50 @@ app.controller('mainCtrl', ['$scope', '$rootScope', 'coreService', '$location', 
             $scope.modalInstance = $uibModal.open({
                 animation: true,
                 templateUrl: 'pages/account_modal.html',
-                size:'sm',
-                scope: $scope,
-                resolve: {
-                    items: function() {
-                        return $scope.items;
-                    }
-                }
+                size: 'sm',
+                scope: $scope
             });
         };
-    }
-]);
 
-app.service('coreService', ['$q', '$http', 'BASEURL',
-    function($q, $http, BASEURL) {
+        coreService.getTransactions(userId)
+            .then(function(data){
+                $scope.transactionsData = data;
+            })
 
-        this.getAccounts = function(userId) {
-            var dfd = $q.defer();
-            $http({
-                method: 'GET',
-                url: BASEURL + 'account',
-                params: {
-                    userId: userId
-                }
-            }).then(function(res) {
-                return dfd.resolve(res.data);
-            }, function(err) {
-                dfd.reject(err);
+        $scope.doTransaction = function(selAcct) {
+            $scope.seltAcct = selAcct;
+            $scope.modalInstance = $uibModal.open({
+                animation: true,
+                templateUrl: 'pages/transaction-modal.html',
+                size: 'sm',
+                scope: $scope
             });
-            return dfd.promise;
         }
 
-        this.addAccount = function(data) {
-            var dfd = $q.defer();
-            $http({
-                method: 'POST',
-                url: BASEURL + 'account',
-                data: data
-            }).then(function(res) {
-                return dfd.resolve(res.data)
-            }, function(err) {
-                dfd.reject(err)
+        function getAccountId(type) {
+            var actId;
+            $scope.accounts.forEach(function(acct) {
+                if (acct.acType == type) {
+                    actId = acct._id;
+                }
             });
-            return dfd.promise;
+            return actId;
+        }
+
+        $scope.doTransfer = function() {
+            $scope.transaction.userId = userId;
+            $scope.transaction.amount = parseInt($scope.transaction.amount, 10);
+            if ($scope.transaction.amount > $scope.seltAcct.amount) {
+                $scope.errMsg = 'Balance is low';
+                return;
+            }
+            $scope.transaction.fromAcct = $scope.seltAcct._id;
+            coreService.doTransaction($scope.transaction)
+                .then(function(data) {
+                    $scope.transactionsData = data;
+                    $scope.getAccounts();
+                    $scope.modalInstance.close();
+                });
         }
     }
 ]);

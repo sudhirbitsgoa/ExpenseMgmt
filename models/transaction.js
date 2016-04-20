@@ -7,14 +7,17 @@ var TransactionSchema = new Schema({
         type: Number,
         required: true
     },
-    account: {
+    fromAcct: {
     	type: ObjectId,
-    	ref: 'account',
-    	required: true
+    	ref: 'Account',
+    },
+    toAcct: {
+        type: ObjectId,
+        ref: 'Account',
     },
     userId: {
         type: ObjectId,
-        ref: 'user',
+        ref: 'User',
         index: true,
         required: true
     },
@@ -25,9 +28,11 @@ var TransactionSchema = new Schema({
 });
 
 TransactionSchema.statics.findByUser = function(userId, cb) {
-    this.findOne({
+    this.find({
         userId: userId
-    }, cb);
+    })
+    .populate('userId')
+    .exec(cb);
 }
 
 module.exports = mongoose.model('Transaction', TransactionSchema, 'transactions');
