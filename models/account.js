@@ -26,14 +26,16 @@ Account.statics.getByUser = function(userId, cb) {
 }
 
 Account.statics.creditBalance = function(data, cb) {
+    var self =  this;
     amount =  data.amount;
     if(!data.account) {
-        console.log('inside no account');
-        return cb(null, 'purchase');
+        this.findOne({acType:'merchant'}, function(err, acctd) {
+            this.findOneAndUpdate({_id: acctd._id }, {$inc: {amount: amount}}, cb);    
+        })
     } else {
-        console.log('why else is called');
         this.findOneAndUpdate({_id: data.account}, {$inc: {amount: amount}}, cb);
     }
+    
 }
 
 Account.statics.debitBalance = function(data, cb) {

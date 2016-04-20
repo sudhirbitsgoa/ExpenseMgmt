@@ -64,6 +64,7 @@ app.controller('mainCtrl', ['$scope', '$rootScope', 'coreService', '$location', 
         coreService.getTransactions(userId)
             .then(function(data) {
                 $scope.transactionsData = data;
+                 $scope.gridOptions.data  = data;
             })
 
         $scope.doTransaction = function(selAcct) {
@@ -97,25 +98,26 @@ app.controller('mainCtrl', ['$scope', '$rootScope', 'coreService', '$location', 
             coreService.doTransaction($scope.transaction)
                 .then(function(data) {
                     $scope.transactionsData = data;
+                    $scope.gridOptions.data = data;
                     $scope.getAccounts();
                     $scope.modalInstance.close();
                 });
         }
 
-
         $scope.gridOptions = {
             enableFiltering: true,
-            data : $scope.transactionsData,
-            onRegisterApi: function(gridApi) {
-                $scope.gridApi = gridApi;
-            },
-            columnDefs:[
-                { field: 'name', headerCellClass: $scope.highlightFilteredHeader },
-                { field: 'name', headerCellClass: $scope.highlightFilteredHeader },
-                { field: 'name', headerCellClass: $scope.highlightFilteredHeader },
-                { field: 'name', headerCellClass: $scope.highlightFilteredHeader },
-                { field: 'name', headerCellClass: $scope.highlightFilteredHeader }
-            ]
+            data: $scope.transactionsData,
+            columnDefs: [{
+                field: 'toAcct'
+            }, {
+                field: 'userId.name' , displayName: "Name"
+            }, {
+                field: 'amount'
+            }, {
+                field: 'fromAcct',
+            }, {
+                field: 'tags',
+            }]
         };
     }
 ]);
