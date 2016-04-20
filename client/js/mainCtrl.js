@@ -62,7 +62,7 @@ app.controller('mainCtrl', ['$scope', '$rootScope', 'coreService', '$location', 
         };
 
         coreService.getTransactions(userId)
-            .then(function(data){
+            .then(function(data) {
                 $scope.transactionsData = data;
             })
 
@@ -101,5 +101,21 @@ app.controller('mainCtrl', ['$scope', '$rootScope', 'coreService', '$location', 
                     $scope.modalInstance.close();
                 });
         }
+
+
+        $scope.gridOptions = {
+            enableFiltering: true,
+            data : $scope.transactionsData,
+            onRegisterApi: function(gridApi) {
+                $scope.gridApi = gridApi;
+            },
+            columnDefs:[
+                { field: 'name', headerCellClass: $scope.highlightFilteredHeader },
+                { field: 'name', headerCellClass: $scope.highlightFilteredHeader },
+                { field: 'name', headerCellClass: $scope.highlightFilteredHeader },
+                { field: 'name', headerCellClass: $scope.highlightFilteredHeader },
+                { field: 'name', headerCellClass: $scope.highlightFilteredHeader }
+            ]
+        };
     }
 ]);

@@ -33,44 +33,7 @@
 			</div>
 
 			<!-- List group -->
-			<ul ng-if='currentAuction' class="list-group">
-				<li class="list-group-item">
-					<div class='container'>
-						<div class="col-sm-3">Seller</div>
-						<div class="col-sm-3">{{currentAuction.auction_by}}</div>
-					</div>
-				</li>
-				<li class="list-group-item">
-					<div class='container'>
-						<div class="col-sm-3">Item Name</div>
-						<div class="col-sm-3">{{currentAuction.item}}</div>
-					</div>
-				</li>
-				<li class="list-group-item">
-					<div class='container'>
-						<div class="col-sm-3">Qantity</div>
-						<div class="col-sm-3">{{currentAuction.quantity}}</div>
-					</div>
-				</li>
-				<li class="list-group-item">
-				<div class='container'>
-						<div class="col-sm-3">Time left</div>
-						<div class="col-sm-3">90 sec</div>
-					</div>
-				</li>
-				<li class="list-group-item">
-					<div class='container'>
-						<div class="col-sm-3">Winning Bid</div>
-						<div class="col-sm-3">{{currentAuction.winning_bid}}</div>
-					</div>
-				</li>
-				<li class="list-group-item">
-					<div class='container'>
-						<div class="col-sm-3"><input type="text" name="input" ng-model="auction.bidamount" placeholder="Bid Amount" required ng-trim="true"></div>
-						<div class="col-sm-3"><button ng-click="bidAuction()">Bid</button></div>
-					</div>
-				</li>
-			</ul>
+			<div ui-grid="{ data: transactionsData }" ui-grid="gridOptions" ></div>
 		</div>
 	</div>
 </div>
