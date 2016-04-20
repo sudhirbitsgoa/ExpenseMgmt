@@ -1,6 +1,6 @@
 'use strict';
 
-var app = angular.module('mainApp', ['ngRoute', 'ui.bootstrap'])
+var app = angular.module('mainApp', ['ngRoute', 'ui.bootstrap', 'ui.grid'])
 
     .controller('loginCtrl', function($scope, $rootScope, $q, $http, $location) {
         $scope.main = {};

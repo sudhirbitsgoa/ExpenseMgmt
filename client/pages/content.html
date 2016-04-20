@@ -1,4 +1,4 @@
-<div class="row">
+<div class>
 	<div class="col-sm-4">
 		<div class="panel panel-default">
 			<!-- Default panel contents -->
@@ -9,7 +9,6 @@
 					<button href="" ng-click='open()' role="button" class="btn btn-primary" data-toggle="modal">
                 		<i class="glyphicon glyphicon-plus glyphicon-white"></i> 
                 	</button>
-               
 			</div>
 			
 			<!-- List group -->
@@ -19,7 +18,7 @@
 						<div class="col-sm-1">{{item.acType}}</div>
 						<div class="col-sm-2">Amount  {{item.amount}}</div>
 						<div class="col-sm-1">
-							<button class='btn pull-right glyphicon glyphicon-chevron-right'  ng-click='doTransact()'> </button>
+							<button class='btn pull-right glyphicon glyphicon-chevron-right'  ng-click='doTransaction(item)'> </button>
 						</div>
 					</div>
 				</li>

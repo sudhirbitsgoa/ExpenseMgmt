@@ -1,4 +1,4 @@
-var Account = mongoose.model('account');
+var Account = mongoose.model('Account');
 
 var createAccount = function(req, res) {
 	var account = {
