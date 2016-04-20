@@ -4,12 +4,14 @@ Includes how to run the app, setting up the developer environment and contributi
 
 ### How to run the app? ###
 * ensure nodejs is installed.
+* mongo seed.js
+* npm install
 * node server.js
 * point to http://localhost:3000
-* This application will show profile details of login user.
-* shows all his repos private and public.
-* private and public repos are differentiated based on yellow and green icons on top.
-* Owner of a repo image is shown.
+* will show loging page enter username if exits shows user data if users does not exit will be created.
+* can create three type of accounts saving, salary and card.
+* can do transactions like buying or transfer to other accouts within.
+* shows list of transactions.
 
 ### Github api ###
 * https://developer.github.com/v3/
@@ -19,9 +21,9 @@ Includes how to run the app, setting up the developer environment and contributi
 * clone 
 * cd GitHubApi
 * npm install
-* gulp serve
-* 
-* 
+* mongo seed.js
+* node server.js
+* point to http://localhost:3000
 
 ### Rest apis
 * http://localhost:3000/user POST {"name": "sudhir"}  creates user if user does not exist. if User already present sends user details.
